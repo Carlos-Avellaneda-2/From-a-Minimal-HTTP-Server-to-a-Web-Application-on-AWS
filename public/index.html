@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab 2 - Mini aplicacion web (servidor secuencial)</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.5;
+    }
+    header img { height: 56px; vertical-align: middle; margin-right: .75rem; }
+    h1 { font-size: 1.4rem; }
+    section {
+      border: 1px solid #8884;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    label { display: block; font-weight: 600; margin-bottom: .25rem; }
+    input { padding: .4rem .5rem; font-size: 1rem; margin-right: .5rem; }
+    button {
+      padding: .4rem .9rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 6px;
+      border: 1px solid #8888;
+      background: #2563eb;
+      color: white;
+    }
+    button:disabled { opacity: .6; cursor: progress; }
+    #result {
+      min-height: 1.5em;
+      font-weight: 600;
+      color: #15803d;
+    }
+    #error {
+      min-height: 1.5em;
+      font-weight: 600;
+      color: #b91c1c;
+    }
+    .loading { color: #6b7280; font-style: italic; }
+    footer img { max-width: 100%; border-radius: 8px; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="Logo del laboratorio">
+    <h1>Lab 2 &mdash; Servidor HTTP secuencial en Java</h1>
+  </header>
+
+  <p>
+    Esta pagina es el <strong>cliente</strong> de la mini aplicacion web. Los botones de abajo
+    llaman a los servicios "harcodeados" del servidor de forma <strong>asincrona</strong>:
+    la pagina nunca se recarga.
+  </p>
+
+  <section>
+    <form id="greet-form">
+      <label for="name">Servicio de saludo (/api/greet)</label>
+      <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+      <button type="submit">Saludar</button>
+    </form>
+  </section>
+
+  <section>
+    <form id="square-form">
+      <label for="value">Servicio de cuadrado (/api/square)</label>
+      <input type="number" id="value" name="value" step="any" placeholder="Un numero" required>
+      <button type="submit">Calcular cuadrado</button>
+    </form>
+  </section>
+
+  <section>
+    <label>Servicio de hora del servidor (/api/time)</label>
+    <button id="time-btn" type="button">Obtener hora del servidor</button>
+  </section>
+
+  <section>
+    <label>Servicio de salud (/api/health)</label>
+    <button id="health-btn" type="button">Verificar salud del servidor</button>
+  </section>
+
+  <div id="result" role="status" aria-live="polite"></div>
+  <div id="error" role="alert" aria-live="assertive"></div>
+
+  <footer>
+    <img src="/images/banner.jpg" alt="Imagen servida por el servidor Java" width="100%">
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

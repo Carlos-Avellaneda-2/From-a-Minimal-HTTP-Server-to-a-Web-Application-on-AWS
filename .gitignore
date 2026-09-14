@@ -1,0 +1,39 @@
+# Maven build output
+target/
+*.class
+
+# IDE metadata
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+logs/
+nohup.out
+
+# Environment / secrets - never commit these
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+.aws/
+credentials
+aws-exports.js
+
+# Local test artifacts
+*.pid

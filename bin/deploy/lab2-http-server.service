@@ -1,0 +1,21 @@
+[Unit]
+Description=Lab 2 - Mini Web Application (sequential HTTP server)
+After=network.target
+
+[Service]
+# Ajusta esta ruta a donde hayas copiado el proyecto en la instancia EC2
+WorkingDirectory=/opt/lab2-http-server
+ExecStart=/usr/bin/java -jar /opt/lab2-http-server/lab2-http-server.jar
+Environment=PORT=8080
+Environment=PUBLIC_DIR=/opt/lab2-http-server/public
+Restart=on-failure
+RestartSec=5
+
+# Logs van al journal (ver con: journalctl -u lab2-http-server -f)
+StandardOutput=journal
+StandardError=journal
+
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target

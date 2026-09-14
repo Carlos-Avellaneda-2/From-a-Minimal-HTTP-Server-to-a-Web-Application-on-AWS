@@ -261,16 +261,39 @@ la conversación, para lo que Claude no puede ejecutar por ti):
    scp -i tu-llave.pem target/lab2-http-server.jar ubuntu@<IP-PUBLICA>:/opt/lab2-http-server/
    scp -i tu-llave.pem -r public ubuntu@<IP-PUBLICA>:/opt/lab2-http-server/
    ```
-4. **Instalar Java** en la instancia (ej. Ubuntu):
+4. **Instalar las herramientas necesarias** en la instancia. Si vas a clonar y compilar el proyecto directamente en EC2, instala Git y Maven:
+
    ```bash
-   sudo apt-get update && sudo apt-get install -y openjdk-21-jre-headless
+   sudo dnf install -y git maven
    ```
-5. **Configurar el servicio** con `deploy/lab2-http-server.service`
+
+   ![Instalación de Git y Maven en EC2](images/ec2-install-git-maven.png)
+
+   Como alternativa a transferir el artefacto compilado, puedes clonar el repositorio en un directorio donde el usuario tenga permisos de escritura:
+
+   ```bash
+   mkdir -p ~/lab2
+   cd ~/lab2
+   git clone <URL-de-tu-repositorio>
+   cd From-a-Minimal-HTTP-Server-to-a-Web-Application-on-AWS
+   mvn clean package
+   ```
+
+   ![Clonado del repositorio en EC2](images/ec2-clone-repository.png)
+
+5. **Instalar Java** en la instancia (ej. Amazon Linux):
+   ```bash
+   sudo dnf install -y java-21-amazon-corretto-headless
+   ```
+
+   ![Instalación de Java en EC2](images/ec2-install-java.png)
+
+6. **Configurar el servicio** con `deploy/lab2-http-server.service`
    (systemd), para que arranque de forma predecible, escriba logs al
    `journal`, y siga corriendo tras cerrar la sesión SSH.
-6. **Verificar** primero dentro de la instancia (`curl localhost:8080/api/health`)
+7. **Verificar** primero dentro de la instancia (`curl localhost:8080/api/health`)
    y luego desde tu computadora usando la IP pública de la instancia.
-7. **Detener y limpiar** siguiendo la sección 12.
+8. **Detener y limpiar** siguiendo la sección 12.
 
 No se publican credenciales, direcciones privadas, ni llaves en este
 repositorio.
@@ -281,6 +304,11 @@ _(Agrega aquí tus capturas de pantalla o enlaces: ejecución local,
 ejecución remota en EC2, recursos estáticos cargando en las herramientas
 de desarrollador del navegador, peticiones asíncronas exitosas, y errores
 controlados.)_
+
+La aplicación quedó disponible desde la dirección pública de la instancia
+EC2 y muestra los cuatro servicios del cliente web:
+
+![Aplicación ejecutándose en la instancia EC2](images/ec2-application-running.png)
 
 ## 13. Limitaciones conocidas
 
@@ -296,7 +324,7 @@ controlados.)_
 
 ## 14. Autor y agradecimientos
 
-- Autor: _(tu nombre aquí)_
+- Autor: Carlos Andres Avellaneda Franco
 - Basado en la guía de laboratorio "Why scalability? — From a Minimal HTTP
   Server to a Web Application on AWS" del curso de Networking.
 - Construido únicamente con la biblioteca estándar de Java (sin
